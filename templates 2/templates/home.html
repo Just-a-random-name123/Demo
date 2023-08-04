@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<body>
+    <section class="greeting">
+        <div class="greeting2">
+        <div>Welcome to</div>
+        <div class="specialtitle">Project Brief</div>
+        </div>
+    </section>
+    <section>
+        <div class="articalcontainer">
+            <div>Articles</div>
+            <a class="seemore" href="/artical"><button>See more</button></a>
+            {% for post in Post %} <!--START (lấy 3 artical sớm nhất hoặc hay nhất, cái này anh sẽ update vào 1 file txt 
+                                                hoặc anh gửi dữ liệu để em chèn vào database)-->
+                <div class="articalbox"></div>
+                <header>
+                    <div>
+                    <h1>{{ post['title'] }}</h1>
+                    <div class="articaldate">date: {{ post['created'].strftime('%Y-%m-%d') }}</div>
+                    </div>
+                </header>
+                <p class="body">{{ post['content'] }}</p>
+                </div> <!--END-->
+            {% endfor %}
+        </div>
+    </section>
+    <section>
+        <div class="blogcontainer">
+            <div>Blog</div>
+            <a class="seemore" href="/blog"><button>See more</button></a>
+            {% for post in posts %}
+            <div class="blogbox">
+            <a href="{{ url_for('views.view', id=post.id ) }}">
+                <div">
+                    <h2> {{ post.title }} </h2>
+                    <p> {{ post.tags }}</p>
+                    <h4>Đăng bởi: {{ post.author }}, {{ post.date }}</h4>
+                    {% if user.role == 'admin' or post.user_id == user.id %}
+                    <a href="{{ url_for('views.edit', id=post['id']) }}"><button>Chỉnh sửa</button></a>
+                    <a href="{{ url_for('views.delete', id=post.id ) }}"><button>Xoá</button></a>
+                    {% endif %}
+                </div>
+            </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</body>
+{% endblock %}
