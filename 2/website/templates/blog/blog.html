@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %} Blog {% endblock %}
+{% block content %}
+<!-- <form action="" method="post">
+    <label for="sort-type">Sắp xếp theo</label>
+    <select name="sort-type">
+        <option value="dec">Cũ nhất</option>
+        <option value="inc">Mới nhất</option>
+    </select>
+    <button type="submit">Áp dụng</button>
+</form> -->
+    <header class="header2">
+        <p class="blogtitle">Blog</p>
+        <nav class="nav">
+        <button class="seemore"><a class="homeword" href="/blog/create">Create blog</a></button>
+        <button class="seemore"><a class="homeword" href="/my-blog">My blog</a></button>
+        {% if user.role == 'admin' %}
+        <button class="seemore"><a class="homeword" href="/admin/queue">Đang chờ</a></button>
+        {% endif %}
+        </nav>
+    </header>
+    <form action="" method="POST">
+        <div class="input">
+        <input type="text" name="search-for">
+        <label for="search-for">Tìm kiếm theo tags</label>
+        </div>
+        <button type="submit" name="btn" value="search">Tìm</button>
+    </form>
+    <header class="header3">
+        {% for post in posts %}
+            <div class="blogbox2">
+            <a href="{{ url_for('blog.view', id=post.id ) }}">
+                <div class="blogcontent">
+                    <div class="intro">
+                    <h2> {{ post.title }} </h2>
+                    <p> {{ post.tags }}</p>
+                    <h4>Đăng bởi: {{ post.author }}, {{ post.date }}</h4>
+                    <div class="nav3">
+                    {% if user.role == 'admin' or post.user_id == user.id %}
+                    
+                        <button type="submit" class="seemore"><a class="homeword" href="{{ url_for('blog.edit', id=post['id']) }}">Edit</a></button>
+                        <br>
+                        <button type="submit" class="seemore"><a class="homeword" href="{{ url_for('blog.delete', id=post.id) }}">Delete</a></button>                        
+                    
+                    {% endif %}
+                    </div>
+                    </div>
+
+                </div>
+            </a> 
+            </div>
+        {% endfor %}
+    </header>
+
+
+{% endblock %}

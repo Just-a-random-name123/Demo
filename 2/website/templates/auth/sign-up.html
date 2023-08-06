@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %} Sign up {% endblock %}
+{% block content %}
+<div class="wrapper2">
+  <a href="/"><span class="close"><span class="material-symbols-sharp">close</span></span></a>
+    <br>
+      <form method="POST">
+        <div class="registrationbox">
+          <h2>Sign up</h2>
+          <br>
+              <div class="input">
+                  <input type="email" name="email" id="email" required>
+                  <label>Email</label>
+              </div>
+              <br>
+              <div class="input">
+                <input type="text" name="userName" id="userName" required>
+                <label>Username</label>
+              </div>
+              <br>        
+              <div class="input">
+                  <input type="password1" name="password1" id="password1" required>
+                  <label>Password</label>
+              </div>
+              <br>
+              <div class="input">
+                  <input type="password2" name="password2" id="password2" required>
+                  <label>Confirm</label>
+              </div>
+              <br>
+              <a href='/'><button type="submit" class="Register">Sign up</button></a>
+              <div class="login">
+                  <p>Already have an account? <a href="/login" class="register-link">Log in</a></p>
+              </div>
+      </form>
+  </div>
+</div>    
+{% endblock %}

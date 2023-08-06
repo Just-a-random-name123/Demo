@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %} Login {% endblock %}
+{% block content %}
+<div class="wrapper2">
+  <a href="/"><span class="close"><span class="material-symbols-sharp">close</span></span></a>
+  <div class="authbox">
+    <br>
+        <form method="POST">
+          <div class="loginbox">
+            <h2>Login</h2>
+            <br>
+                <div class="input">
+                    <span class="icon"><span class="material-symbols-sharp">person</span></span>
+                    <input type="email" name="email" id="email" required>
+                    <label>Email</label>
+                </div>
+                <br>
+                <div class="input">
+                    <span class="icon"><span class="material-symbols-sharp">vpn_key</span></span>
+                    <input type="password" name="password" id="password" required>
+                    <label>Password</label>
+                </div>
+                <br>
+                <button type="submit" class="Login">Login</button>
+                <div class="register">
+                    <p>Don't have an account? <a href="/sign-up" class="register-link">Register</a></p>
+                </div>
+        </div>
+        </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+{% block content %}
+<body>
+    <div class="parallax"></div>
+    <section class="greeting">
+        <div class="greeting2">
+            <div>Welcome to</div>
+            <div class="specialtitle">Project Brief</div>
+        </div>
+    </section>
+    <div class="parallax"></div>
+
+    <div class="parallax"></div>
+    <section>
+        <div class="articlecontainer">
+            <header class="header2">
+            <div class="articletitle">Articles</div>
+            <nav class="nav2">
+            <button type="submit" class="seemore"><a class="homeword" href="/article">See more</a></button>
+            </nav>
+            </header>
+            <header class="header3">
+            {% for post in article %} 
+            <div class="articlebox">
+                <a href="{{ article.link_to_article }}">    
+                    <div class="boxcontent">
+                        <img class="pic" src="{{ post.img_url }}" alt="">
+                        <div class="articletags"> {{ post.tags }} </div>
+                        <br>
+                        <h4 class="date"> {{ post.date }} </h4>
+                        <br>
+                        <h3 class="title"> {{ post.title }} </h3>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+            </header>
+        </div>
+    </section>
+    <div class="parallax"></div>
+
+    <section>
+        <div class="blogcontainer">
+            <header class="header2">
+            <div class="blogtitle">Blog</div>
+            <nav class="nav2">
+            <button type="submit" class="seemore"><a class="homeword" href="/blog">See more</a></button>
+            </nav>
+            </header>
+            <header class="header3">
+            {% for post in post %}
+                <div class="blogbox">
+                <a href="{{ url_for('blog.view', id=post.id ) }}">
+                    <div class="blogcontent">
+                        <div class="intro">
+                        <h2> {{ post.title }} </h2>
+                        <p> {{ post.tags }}</p>
+                        <h4>Đăng bởi: {{ post.author }}, {{ post.date }}</h4>
+                        </div>
+                        <div class="nav3">
+                        {% if user.role == 'admin' or post.user_id == user.id %}
+                        
+                            <button type="submit" class="seemore"><a class="homeword" href="{{ url_for('blog.edit', id=post['id']) }}">Edit</a></button>
+                            <br>
+                            <button type="submit" class="seemore"><a class="homeword" href="{{ url_for('blog.delete', id=post.id) }}">Delete</a></button>                        
+                        
+                        {% endif %}
+                        </div>
+                    </div>
+                </a> 
+                </div>
+            {% endfor %}
+            </header>
+        </div>
+    </section>
+</body>
+{% endblock %}
