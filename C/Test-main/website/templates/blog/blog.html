@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %} Blog {% endblock %}
+{% block content %}
+<h1>Blogs</h1>
+<!-- <form action="" method="post">
+    <label for="sort-type">Sắp xếp theo</label>
+    <select name="sort-type">
+        <option value="dec">Cũ nhất</option>
+        <option value="inc">Mới nhất</option>
+    </select>
+    <button type="submit">Áp dụng</button>
+</form> -->
+<div>
+    <form action="" method="POST">
+        <label for="search-for">Tìm kiếm theo tags</label>
+        <input type="text" name="search-for"></input>
+        <button type="submit" name="btn" value="search">Tìm</button>
+    </form>
+</div>
+
+    <header class="header2">
+    <div class="blogtitle">Blog</div>
+    <nav class="nav2">
+    <button type="submit" class="seemore"><a class="homeword" href="/blog">See more</a></button>
+    </nav>
+    </header>
+    <header class="header3">
+    {% for post in posts %}
+        <div class="blogbox">
+        <a href="{{ url_for('blog.view', id=post.id ) }}">
+            <div class="blogcontent">
+                <div class="intro">
+                <h2> {{ post.title }} </h2>
+                <p> {{ post.tags }}</p>
+                <h4>Đăng bởi: {{ post.author }}, {{ post.date }}</h4>
+                </div>
+                <div class="nav3">
+                {% if user.role == 'admin' or post.user_id == user.id %}
+                
+                    <button type="submit" class="seemore"><a class="homeword" href="{{ url_for('blog.edit', id=post['id']) }}">Edit</a></button>
+                    <br>
+                    <button type="submit" class="seemore"><a class="homeword" href="{{ url_for('blog.delete', id=post.id) }}">Delete</a></button>                        
+                
+                {% endif %}
+                </div>
+            </div>
+        </a> 
+        </div>
+    {% endfor %}
+    </header>
+
+<button><a href="/blog/create">Create blog</a></button>
+<button><a href="/my-blog">My blog</a></button>
+{% if user.role == 'admin' %}
+<button><a href="/admin/queue">Đang chờ</a></button>
+{% endif %}
+{% endblock %}
